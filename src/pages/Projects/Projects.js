@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
 import { SectionTitle, Pill } from '../../styles';
-import { ProjectItem, ProjectTitle, SkillContainer } from './styles';
+import { ProjectItem, ProjectTitle, SkillContainer, ProjectLinks } from './styles';
 
 const Projects = ({ user }) => {
   return (
@@ -18,6 +18,10 @@ const Projects = ({ user }) => {
                   <Pill key={j}>{item}</Pill>
                 ))}
               </SkillContainer>
+              <ProjectLinks>
+                <a style={{ textDecoration: 'none' }} target="_blank" rel="noopener noreferrer" href={project.url}>{project.url}</a>
+                <a style={{ textDecoration: 'none' }} target="_blank" rel="noopener noreferrer" href={project.githubUrl}>{project.githubUrl}</a>
+              </ProjectLinks>
             </ProjectItem>
           ))}
         </ul>

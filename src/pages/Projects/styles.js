@@ -14,3 +14,11 @@ export const ProjectTitle = styled.h4`
 export const SkillContainer = styled.div`
   margin-top: 1.2rem;
 `
+
+export const ProjectLinks = styled.a`
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  text-decoration: none;
+  margin: .5rem 0 .5rem 0;
+`

@@ -2,7 +2,7 @@
   "name": "portfolio",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://naeemdadi.github.io/portfolio",
+  "homepage": "http://naeemdadi.github.io/naeemdadi.github.io",
   "dependencies": {
     "@carbon/icons-react": "^10.22.0",
     "@carbon/themes": "^10.24.0",
