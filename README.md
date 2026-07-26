@@ -18,8 +18,8 @@ https://gitconnected.com/v1/portfolio/<YOUR_USERNAME>
 ```
 git clone git@github.com:treyhuffine/portfolio-create-react-app.git
 cd portfolio-create-react-app
-yarn install
-yarn start
+npm install
+npm run dev
 ```
 
 ## Packages
