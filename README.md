@@ -22,6 +22,9 @@ npm install
 npm run dev
 ```
 
+## Deployment
+Pushes to `master` run the GitHub Pages deployment workflow. Set **Settings > Pages > Build and deployment > Source** to **GitHub Actions** once before the first automated deployment.
+
 ## Packages
 - React (using create-react-app)
 - Styled Components
