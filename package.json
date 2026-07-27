@@ -6,13 +6,8 @@
   "license": "MIT",
   "homepage": "http://naeemdadi.github.io/",
   "dependencies": {
-    "@carbon/icons-react": "^10.6.1",
-    "@carbon/themes": "^10.7.0",
-    "carbon-components": "^10.7.3",
-    "carbon-components-react": "^7.7.3",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "sass": "^1.102.0",
     "styled-components": "^4.4.1"
@@ -20,8 +15,7 @@
   "scripts": {
     "dev": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
     "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
-    "build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
-    "postbuild": "cp build/index.html build/404.html",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build && cp build/index.html build/404.html",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
