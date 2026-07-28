@@ -198,6 +198,14 @@ export const portfolio = {
   ],
   writing: [
     {
+      title: "Know What to Verify Before Merging",
+      summary:
+        "Building PR Impact Analysis: a GitHub App that traces PR changes through a JS/TS dependency graph and posts an evidence-backed verification plan before merge.",
+      date: "2026/07",
+      publication: "Hashnode",
+      url: "https://naeemdadi.hashnode.dev/know-what-to-verify-before-merging",
+    },
+    {
       title: "Node App Integration Tests with Docker, Redis & PostgreSQL",
       summary:
         "How to run Node.js integration tests against real Redis and PostgreSQL with Docker Compose, Jest setup, and GitHub Actions image caching.",
