@@ -1,23 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import { SITE_COPY } from "../../constants/copy";
-import { useReveal } from "../../hooks/useReveal";
-import {
-  Meta,
-  Section,
-  SectionHeader,
-  SectionLead,
-  SectionTitle,
-} from "../../styles";
+import { SITE_COPY } from "../constants/copy";
+import { portfolio } from "../data/portfolio";
+import { Meta, PageHeader, PageLead, PageTitle, Stack } from "../styles";
 
-const List = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-`;
-
-const CompanyCard = styled.li`
+const CompanyCard = styled.article`
   background: var(--color-bg-elevated);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -29,37 +17,27 @@ const CompanyHead = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
-  padding: var(--space-5);
+  padding: var(--space-4) var(--space-5);
   border-bottom: 1px solid var(--color-border);
-  background: linear-gradient(
-    180deg,
-    rgba(247, 247, 248, 0.9) 0%,
-    var(--color-bg-elevated) 100%
-  );
+  background: var(--color-panel);
 
   @media (min-width: 640px) {
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
-    gap: var(--space-4);
   }
 `;
 
-const CompanyName = styled.h3`
-  font-size: clamp(1.15rem, 3vw, 1.4rem);
+const CompanyName = styled.h2`
+  font-size: clamp(1.15rem, 3vw, 1.35rem);
   letter-spacing: -0.02em;
 `;
 
-const RoleStack = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const RoleBlock = styled.article`
+const RoleBlock = styled.div`
   padding: var(--space-5);
   border-top: 1px solid var(--color-border);
 
-  &:first-child {
+  &:first-of-type {
     border-top: none;
   }
 `;
@@ -78,36 +56,27 @@ const RoleHeader = styled.div`
   }
 `;
 
-const RoleTitle = styled.h4`
-  font-family: var(--font-display);
-  font-size: 1.02rem;
+const RoleTitle = styled.h3`
+  font-size: 1.05rem;
   font-weight: 600;
-  margin: 0;
-  line-height: 1.3;
 `;
 
 const Story = styled.p`
-  color: var(--color-fg);
   font-size: 0.98rem;
-  line-height: 1.6;
-  margin-bottom: var(--space-4);
-  max-width: 62ch;
+  line-height: 1.55;
+  margin-bottom: var(--space-3);
 `;
 
 const Tech = styled.p`
   font-family: var(--font-mono);
   font-size: 0.72rem;
   color: var(--color-fg-muted);
-  letter-spacing: 0.02em;
-  margin-bottom: var(--space-3);
   line-height: 1.5;
+  margin-bottom: var(--space-3);
   overflow-wrap: anywhere;
 `;
 
 const Toggle = styled.button`
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
   border: none;
   background: transparent;
   padding: 0;
@@ -144,43 +113,35 @@ const Win = styled.li`
   padding: var(--space-3);
   background: var(--color-panel);
   border-radius: var(--radius);
-  border: 1px solid transparent;
 `;
 
 const WinTitle = styled.span`
   font-family: var(--font-display);
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--color-fg);
 `;
 
 const WinDetail = styled.span`
   color: var(--color-fg-muted);
   font-size: 0.92rem;
-  line-height: 1.55;
+  line-height: 1.5;
 `;
 
-const EducationBlock = styled.div`
-  margin-top: var(--space-6);
+const Education = styled.div`
   padding: var(--space-5);
   background: var(--color-bg-elevated);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
 `;
 
-const EducationTitle = styled.h3`
-  font-size: 0.8rem;
+const EducationTitle = styled.h2`
+  font-size: 0.78rem;
   font-family: var(--font-mono);
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-fg-muted);
   margin-bottom: var(--space-3);
-`;
-
-const EducationLine = styled.p`
-  font-size: 0.975rem;
-  color: var(--color-fg);
 `;
 
 const RoleItem = ({ role }) => {
@@ -226,49 +187,39 @@ const RoleItem = ({ role }) => {
   );
 };
 
-const Experience = ({ jobs, education }) => {
-  const [ref, visible] = useReveal();
-
-  return (
-    <Section
-      id="experience"
-      ref={ref}
-      className={visible ? "is-visible" : undefined}
-    >
-      <SectionHeader>
-        <SectionTitle>{SITE_COPY.sections.experience}</SectionTitle>
-        <SectionLead>{SITE_COPY.sections.experienceLead}</SectionLead>
-      </SectionHeader>
-      <List>
-        {jobs.map((job) => (
-          <CompanyCard key={job.company}>
-            <CompanyHead>
-              <CompanyName>{job.company}</CompanyName>
-              {job.location && <Meta>{job.location}</Meta>}
-            </CompanyHead>
-            <RoleStack>
-              {job.roles.map((role) => (
-                <RoleItem
-                  key={`${job.company}-${role.position}-${role.start}`}
-                  role={role}
-                />
-              ))}
-            </RoleStack>
-          </CompanyCard>
-        ))}
-      </List>
-      {education && education.length > 0 && (
-        <EducationBlock>
-          <EducationTitle>{SITE_COPY.sections.education}</EducationTitle>
-          {education.map((item) => (
-            <EducationLine key={item.school}>
-              {item.degree}, {item.school} <Meta>({item.years})</Meta>
-            </EducationLine>
+const ExperiencePage = () => (
+  <>
+    <PageHeader>
+      <PageTitle>{SITE_COPY.sections.experience}</PageTitle>
+      <PageLead>{SITE_COPY.sections.experienceLead}</PageLead>
+    </PageHeader>
+    <Stack gap="var(--space-4)">
+      {portfolio.experience.map((job) => (
+        <CompanyCard key={job.company}>
+          <CompanyHead>
+            <CompanyName>{job.company}</CompanyName>
+            {job.location && <Meta>{job.location}</Meta>}
+          </CompanyHead>
+          {job.roles.map((role) => (
+            <RoleItem
+              key={`${job.company}-${role.position}-${role.start}`}
+              role={role}
+            />
           ))}
-        </EducationBlock>
+        </CompanyCard>
+      ))}
+      {portfolio.education && portfolio.education.length > 0 && (
+        <Education>
+          <EducationTitle>{SITE_COPY.sections.education}</EducationTitle>
+          {portfolio.education.map((item) => (
+            <p key={item.school}>
+              {item.degree}, {item.school} <Meta>({item.years})</Meta>
+            </p>
+          ))}
+        </Education>
       )}
-    </Section>
-  );
-};
+    </Stack>
+  </>
+);
 
-export default Experience;
+export default ExperiencePage;

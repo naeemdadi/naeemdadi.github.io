@@ -1,15 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 :root {
-  --color-bg: #fafafa;
+  --color-bg: #f4f4f5;
   --color-bg-elevated: #ffffff;
   --color-fg: #09090b;
   --color-fg-muted: #52525b;
   --color-border: #e4e4e7;
+  --color-border-strong: #d4d4d8;
   --color-accent: #2563eb;
   --color-accent-hover: #1d4ed8;
-  --color-wash: #eef2ff;
-  --color-row-hover: #f4f4f5;
+  --color-wash: rgba(37, 99, 235, 0.08);
+  --color-panel: #f4f4f5;
+  --color-ink-soft: #18181b;
 
   --font-display: 'Space Grotesk', sans-serif;
   --font-body: 'Archivo', sans-serif;
@@ -23,15 +25,28 @@
   --space-6: 2rem;
   --space-7: 3rem;
   --space-8: 4rem;
-  --space-9: 6rem;
-  --space-10: 8rem;
+  --space-9: 5rem;
+  --space-10: 7rem;
 
-  --max-width: 72rem;
-  --intro-width: 22rem;
-  --content-width: 38rem;
-  --nav-height: 3.25rem;
-  --radius: 0;
-  --transition: 220ms ease;
+  --page-pad: 1.25rem;
+  --max-width: 68rem;
+  --nav-height: 3.75rem;
+  --radius: 0.625rem;
+  --radius-lg: 0.875rem;
+  --transition: 200ms ease;
+  --shadow-panel: 0 1px 0 rgba(9, 9, 11, 0.04), 0 10px 28px rgba(9, 9, 11, 0.06);
+}
+
+@media (min-width: 640px) {
+  :root {
+    --page-pad: 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --page-pad: 2.25rem;
+  }
 }
 
 *,
@@ -49,15 +64,14 @@ body {
   min-height: 100vh;
   font-family: var(--font-body);
   font-size: 1rem;
-  line-height: 1.65;
+  line-height: 1.6;
   color: var(--color-fg);
   background-color: var(--color-bg);
   background-image: radial-gradient(
-    ellipse 90% 55% at 0% 0%,
+    ellipse 90% 50% at 50% -20%,
     var(--color-wash),
-    transparent 55%
+    transparent 60%
   );
-  background-attachment: fixed;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

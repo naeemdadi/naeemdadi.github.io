@@ -1,6 +1,6 @@
 export const portfolio = {
   name: "Naeem Dadi",
-  role: "Senior Full Stack Engineer",
+  role: "Full Stack Engineer",
   tagline:
     "I take products from idea to production: sharp interfaces, solid backends and the infra that keeps them reliable.",
   email: "naeemdadi85@gmail.com",
@@ -29,7 +29,7 @@ export const portfolio = {
       name: "Impact Analysis",
       summary:
         "AI-powered change intelligence that analyzes pull requests, maps affected application areas, and recommends what to verify before merge.",
-      tech: ["TypeScript", "Shell"],
+      tech: ["TypeScript", "Node.js", "Express", "PostgreSQL", "Drizzle ORM", "OpenAI", "GitHub Apps", "AST Analysis", "Static Analysis", "Dependency Graphs"],
       url: "https://impact-analysis-yiyj.onrender.com/",
       githubUrl: "https://github.com/naeemdadi/impact-analysis",
     },
@@ -47,7 +47,7 @@ export const portfolio = {
       location: "Germany (Remote)",
       roles: [
         {
-          position: "Senior Software Engineer",
+          position: "Software Engineer",
           start: "2026/02",
           end: "2026/07",
           featured: true,
@@ -91,7 +91,7 @@ export const portfolio = {
       location: "Pune, India",
       roles: [
         {
-          position: "Senior Software Engineer",
+          position: "Software Engineer",
           start: "2024/04",
           end: "2026/02",
           featured: true,

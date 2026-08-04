@@ -4,87 +4,153 @@ import styled from "styled-components";
 import { SITE_COPY } from "../../constants/copy";
 import { useReveal } from "../../hooks/useReveal";
 import {
-  Meta,
   Section,
   SectionHeader,
-  SectionIndex,
+  SectionLead,
   SectionTitle,
   TextLink,
 } from "../../styles";
 
-const List = styled.ul`
-  display: flex;
-  flex-direction: column;
+const Grid = styled.div`
+  display: grid;
+  gap: var(--space-5);
+
+  @media (min-width: 900px) {
+    gap: var(--space-6);
+  }
 `;
 
-const Item = styled.li`
+const Card = styled.article`
   display: grid;
-  gap: var(--space-3);
-  padding: var(--space-5) 0;
-  border-top: 1px solid var(--color-border);
+  gap: 0;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-panel);
+  overflow: hidden;
+  transition: border-color var(--transition), transform var(--transition),
+    box-shadow var(--transition);
 
-  &:last-child {
-    border-bottom: 1px solid var(--color-border);
+  @media (min-width: 900px) {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    min-height: 20rem;
   }
 
-  @media (hover: hover) and (min-width: 640px) {
-    margin: 0 calc(-1 * var(--space-4));
-    padding-left: var(--space-4);
-    padding-right: var(--space-4);
-    transition: background var(--transition), transform var(--transition);
-
+  @media (hover: hover) {
     &:hover {
-      background: var(--color-row-hover);
-      transform: translateX(0.25rem);
+      border-color: var(--color-border-strong);
+      transform: translateY(-3px);
+      box-shadow: 0 1px 0 rgba(9, 9, 11, 0.04), 0 18px 48px rgba(9, 9, 11, 0.1);
     }
   }
+`;
 
-  @media (min-width: 640px) {
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: start;
+const Preview = styled.div`
+  position: relative;
+  min-height: 14rem;
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(37, 99, 235, 0.14),
+      transparent 42%
+    ),
+    linear-gradient(160deg, #f4f4f5 0%, #eef2ff 48%, #fafafa 100%);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-5);
+  display: flex;
+  align-items: flex-end;
+
+  @media (min-width: 900px) {
+    min-height: 100%;
+    border-bottom: none;
+    border-right: 1px solid var(--color-border);
+    padding: var(--space-6);
+  }
+`;
+
+const PreviewWindow = styled.div`
+  width: 100%;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  backdrop-filter: blur(6px);
+`;
+
+const PreviewLabel = styled.p`
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+  margin-bottom: var(--space-3);
+`;
+
+const PreviewBars = styled.div`
+  display: grid;
+  gap: var(--space-2);
+`;
+
+const Bar = styled.div`
+  height: 0.55rem;
+  border-radius: 999px;
+  background: ${(props) =>
+    props.$accent ? "rgba(37, 99, 235, 0.55)" : "var(--color-panel)"};
+  width: ${(props) => props.$width || "100%"};
+`;
+
+const Body = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-5);
+
+  @media (min-width: 900px) {
+    padding: var(--space-6);
+    justify-content: center;
   }
 `;
 
 const ProjectName = styled.h3`
-  font-size: 1.15rem;
-  margin-bottom: var(--space-2);
-
-  @media (min-width: 640px) {
-    font-size: 1.25rem;
-  }
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  letter-spacing: -0.03em;
 `;
 
 const Summary = styled.p`
   color: var(--color-fg-muted);
-  max-width: 52ch;
-  margin-bottom: var(--space-3);
-  font-size: 0.98rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 40ch;
 `;
 
-const Tech = styled.p`
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--color-fg-muted);
-  line-height: 1.5;
-  overflow-wrap: anywhere;
-  margin-bottom: var(--space-3);
+const TechRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+`;
 
-  @media (min-width: 640px) {
-    margin-bottom: 0;
-  }
+const TechChip = styled.span`
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-fg-muted);
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: calc(var(--radius) - 2px);
+  padding: 0.3rem 0.55rem;
+  letter-spacing: 0.02em;
 `;
 
 const Links = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-4);
-  min-height: 2.75rem;
-  align-items: center;
+  margin-top: var(--space-1);
 
-  @media (min-width: 640px) {
-    justify-content: flex-end;
-    padding-top: 0.2rem;
-    min-width: 7rem;
+  a {
+    min-height: 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    font-weight: 500;
   }
 `;
 
@@ -93,47 +159,62 @@ const SelectedWork = ({ projects }) => {
 
   return (
     <Section
-      id="projects"
+      id="work"
       ref={ref}
       className={visible ? "is-visible" : undefined}
     >
       <SectionHeader>
-        <SectionIndex aria-hidden="true">03</SectionIndex>
         <SectionTitle>{SITE_COPY.sections.work}</SectionTitle>
+        <SectionLead>{SITE_COPY.sections.workLead}</SectionLead>
       </SectionHeader>
-      <List>
-        {projects.map((project) => (
-          <Item key={project.name}>
-            <div>
+      <Grid>
+        {projects.map((project, index) => (
+          <Card key={project.name}>
+            <Preview>
+              <PreviewWindow>
+                <PreviewLabel>
+                  {String(index + 1).padStart(2, "0")} / {project.name}
+                </PreviewLabel>
+                <PreviewBars>
+                  <Bar $width="72%" $accent={index === 0} />
+                  <Bar $width="88%" />
+                  <Bar $width="54%" $accent={index !== 0} />
+                  <Bar $width="66%" />
+                </PreviewBars>
+              </PreviewWindow>
+            </Preview>
+            <Body>
               <ProjectName>{project.name}</ProjectName>
               <Summary>{project.summary}</Summary>
-              <Tech>
-                <Meta>{project.tech.join(" · ")}</Meta>
-              </Tech>
-            </div>
-            <Links>
-              {project.url && (
-                <TextLink
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {SITE_COPY.work.live}
-                </TextLink>
-              )}
-              {project.githubUrl && (
-                <TextLink
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {SITE_COPY.work.github}
-                </TextLink>
-              )}
-            </Links>
-          </Item>
+              <TechRow>
+                {project.tech.slice(0, 6).map((item) => (
+                  <TechChip key={item}>{item}</TechChip>
+                ))}
+              </TechRow>
+              <Links>
+                {project.url && (
+                  <TextLink
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {SITE_COPY.work.live}
+                  </TextLink>
+                )}
+                {project.githubUrl && (
+                  <TextLink
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {SITE_COPY.work.github}
+                  </TextLink>
+                )}
+              </Links>
+            </Body>
+          </Card>
         ))}
-      </List>
+      </Grid>
     </Section>
   );
 };

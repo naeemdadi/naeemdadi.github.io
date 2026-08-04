@@ -1,45 +1,30 @@
 import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import About from "./components/About";
-import Contact from "./components/Contact";
-import Experience from "./components/Experience";
-import Intro from "./components/Intro";
-import SelectedWork from "./components/SelectedWork";
-import Skills from "./components/Skills";
-import Writing from "./components/Writing";
-import { portfolio } from "./data/portfolio";
-import { Content, Page, Shell } from "./styles";
+import Layout from "./components/Layout";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
+import ExperiencePage from "./pages/ExperiencePage";
+import HomePage from "./pages/HomePage";
+import WorkPage from "./pages/WorkPage";
+import WritingPage from "./pages/WritingPage";
+
+const basename = process.env.PUBLIC_URL || "";
 
 function App() {
   return (
-    <Page>
-      <Shell>
-        <Intro
-          name={portfolio.name}
-          role={portfolio.role}
-          tagline={portfolio.tagline}
-          email={portfolio.email}
-          resumeUrl={portfolio.resumeUrl}
-          profiles={portfolio.profiles}
-        />
-        <Content>
-          <About paragraphs={portfolio.about} />
-          <Experience
-            jobs={portfolio.experience}
-            education={portfolio.education}
-          />
-          <SelectedWork projects={portfolio.projects} />
-          <Skills groups={portfolio.skills} />
-          <Writing posts={portfolio.writing} />
-          <Contact
-            email={portfolio.email}
-            profiles={portfolio.profiles}
-            name={portfolio.name}
-            resumeUrl={portfolio.resumeUrl}
-          />
-        </Content>
-      </Shell>
-    </Page>
+    <BrowserRouter basename={basename}>
+      <Layout>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/work" component={WorkPage} />
+          <Route path="/experience" component={ExperiencePage} />
+          <Route path="/about" component={AboutPage} />
+          <Route path="/writing" component={WritingPage} />
+          <Route path="/contact" component={ContactPage} />
+        </Switch>
+      </Layout>
+    </BrowserRouter>
   );
 }
 

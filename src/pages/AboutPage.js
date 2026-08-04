@@ -1,14 +1,34 @@
 import React from "react";
 import styled from "styled-components";
 
-import { SITE_COPY } from "../../constants/copy";
-import { useReveal } from "../../hooks/useReveal";
+import { SITE_COPY } from "../constants/copy";
+import { portfolio } from "../data/portfolio";
 import {
-  Section,
+  BodyText,
+  PageHeader,
+  PageLead,
+  PageTitle,
   SectionHeader,
   SectionLead,
   SectionTitle,
-} from "../../styles";
+  Stack,
+} from "../styles";
+
+const AboutCopy = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-7);
+  padding: var(--space-5);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-panel);
+
+  @media (min-width: 800px) {
+    padding: var(--space-6);
+  }
+`;
 
 const Bento = styled.div`
   display: grid;
@@ -16,10 +36,6 @@ const Bento = styled.div`
 
   @media (min-width: 720px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 `;
 
@@ -29,21 +45,7 @@ const Tile = styled.div`
   border-radius: var(--radius-lg);
   padding: var(--space-5);
   box-shadow: var(--shadow-panel);
-  min-height: 10.5rem;
-  transition: border-color var(--transition), transform var(--transition);
-
-  @media (hover: hover) {
-    &:hover {
-      border-color: var(--color-border-strong);
-      transform: translateY(-2px);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    &:first-child {
-      grid-column: span 2;
-    }
-  }
+  min-height: 9.5rem;
 `;
 
 const Group = styled.h3`
@@ -69,24 +71,29 @@ const Chip = styled.span`
   background: var(--color-panel);
   border: 1px solid var(--color-border);
   border-radius: calc(var(--radius) - 2px);
-  padding: 0.4rem 0.65rem;
+  padding: 0.35rem 0.6rem;
 `;
 
-const Skills = ({ groups }) => {
-  const [ref, visible] = useReveal();
+const AboutPage = () => (
+  <>
+    <PageHeader>
+      <PageTitle>{SITE_COPY.sections.about}</PageTitle>
+      <PageLead>{SITE_COPY.sections.aboutLead}</PageLead>
+    </PageHeader>
 
-  return (
-    <Section
-      id="skills"
-      ref={ref}
-      className={visible ? "is-visible" : undefined}
-    >
+    <AboutCopy>
+      {portfolio.about.map((paragraph) => (
+        <BodyText key={paragraph}>{paragraph}</BodyText>
+      ))}
+    </AboutCopy>
+
+    <Stack gap="var(--space-5)">
       <SectionHeader>
         <SectionTitle>{SITE_COPY.sections.skills}</SectionTitle>
         <SectionLead>{SITE_COPY.sections.skillsLead}</SectionLead>
       </SectionHeader>
       <Bento>
-        {groups.map((group) => (
+        {portfolio.skills.map((group) => (
           <Tile key={group.group}>
             <Group>{group.group}</Group>
             <Chips>
@@ -97,8 +104,8 @@ const Skills = ({ groups }) => {
           </Tile>
         ))}
       </Bento>
-    </Section>
-  );
-};
+    </Stack>
+  </>
+);
 
-export default Skills;
+export default AboutPage;
